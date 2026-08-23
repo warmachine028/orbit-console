@@ -782,7 +782,7 @@ function AppShell({
                         <Route path="*" element={<NotFound authenticated />} />
                     </Routes>
 
-                    <footer className="mt-14 flex flex-col gap-2 border-t border-white/10 border-border pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+                    <footer className="mt-14 flex flex-col gap-2 border-t border-border pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
                         <span>Orbit Console · 2026</span>
                         <span>
                             React frontend · Spring Boot API · Neon Postgres
