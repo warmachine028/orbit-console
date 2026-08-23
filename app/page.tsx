@@ -392,7 +392,7 @@ function AppShell({
                         sidebarCollapsed ? "w-20" : "w-64"
                     }`}
                 >
-                    <p className="eyebrow mb-4 px-3">Workspace</p>
+                    <p className="eyebrow mb-4 px-3">Workxspace</p>
                     {nav}
                     <Separator className="my-7 opacity-40" />
 
