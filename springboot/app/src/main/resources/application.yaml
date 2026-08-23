@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: orbit-api
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/orbit}
+    username: ${PGUSER:postgres}
+    password: ${PGPASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  port: ${PORT:8080}
+app:
+  cors:
+    allowed-origin: ${FRONTEND_URL:http://localhost:3000}
