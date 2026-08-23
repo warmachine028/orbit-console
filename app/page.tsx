@@ -2,1052 +2,1051 @@
 
 import { useEffect, useMemo, useState } from "react";
 import {
-    BrowserRouter,
-    Navigate,
-    Route,
-    Routes,
-    Link,
-    useLocation,
-    useNavigate,
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  Link,
+  useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import {
-    AlertCircle,
-    ArrowUpRight,
-    Check,
-    ChevronDown,
-    CircleUserRound,
-    Database,
-    LayoutDashboard,
-    LogOut,
-    Menu,
-    Pencil,
-    Plus,
-    Search,
-    Settings2,
-    ShieldCheck,
-    Sparkles,
-    Trash2,
-    X,
+  AlertCircle,
+  ArrowUpRight,
+  Check,
+  ChevronDown,
+  CircleUserRound,
+  Database,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  Pencil,
+  Plus,
+  Search,
+  Settings2,
+  ShieldCheck,
+  Sparkles,
+  Trash2,
+  X,
 } from "lucide-react";
 
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import {
-    Sheet,
-    SheetContent,
-    SheetTitle,
-    SheetTrigger,
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 
 type RecordItem = {
-    id: number;
-    name: string;
-    category: string;
-    status: "Active" | "Draft" | "Paused";
-    updated: string;
+  id: number;
+  name: string;
+  category: string;
+  status: "Active" | "Draft" | "Paused";
+  updated: string;
 };
 
 const initialRecords: RecordItem[] = [
-    {
-        id: 1,
-        name: "Customer onboarding",
-        category: "Operations",
-        status: "Active",
-        updated: "2 min ago",
-    },
-    {
-        id: 2,
-        name: "Q3 launch checklist",
-        category: "Marketing",
-        status: "Active",
-        updated: "1 hour ago",
-    },
-    {
-        id: 3,
-        name: "Vendor security review",
-        category: "Compliance",
-        status: "Draft",
-        updated: "Yesterday",
-    },
-    {
-        id: 4,
-        name: "Support escalation flow",
-        category: "Operations",
-        status: "Paused",
-        updated: "Aug 18, 2026",
-    },
+  {
+    id: 1,
+    name: "Customer onboarding",
+    category: "Operations",
+    status: "Active",
+    updated: "2 min ago",
+  },
+  {
+    id: 2,
+    name: "Q3 launch checklist",
+    category: "Marketing",
+    status: "Active",
+    updated: "1 hour ago",
+  },
+  {
+    id: 3,
+    name: "Vendor security review",
+    category: "Compliance",
+    status: "Draft",
+    updated: "Yesterday",
+  },
+  {
+    id: 4,
+    name: "Support escalation flow",
+    category: "Operations",
+    status: "Paused",
+    updated: "Aug 18, 2026",
+  },
 ];
 
 function Login({ onLogin }: { onLogin: () => void }) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const submit = (event: React.FormEvent) => {
-        event.preventDefault();
-        if (username === "admin" && password === "password") {
-            onLogin();
-            toast.success("Welcome back, admin");
-        } else {
-            toast.error("Invalid credentials", {
-                description: "Use admin and password for the demo.",
-            });
-        }
-    };
+  const submit = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (username === "admin" && password === "password") {
+      onLogin();
+      toast.success("Welcome back, admin");
+    } else {
+      toast.error("Invalid credentials", {
+        description: "Use admin and password for the demo.",
+      });
+    }
+  };
 
-    return (
-        <main className="min-h-screen grid place-items-center p-6">
-            <div className="ambient ambient-pink" />
-            <div className="ambient ambient-blue" />
+  return (
+    <main className="min-h-screen grid place-items-center p-6">
+      <div className="ambient ambient-pink" />
+      <div className="ambient ambient-blue" />
 
-            <Card className="glass-card relative w-full max-w-md rounded-[7px] border-white/10 shadow-2xl">
-                <CardHeader className="gap-4">
-                    <div className="brand-mark">
-                        <Sparkles className="size-5" />
-                    </div>
-                    <div>
-                        <CardTitle className="text-2xl">
-                            Welcome to Orbit
-                        </CardTitle>
-                        <CardDescription className="mt-1">
-                            A focused workspace for everything that moves your
-                            team forward.
-                        </CardDescription>
-                    </div>
-                </CardHeader>
+      <Card className="glass-card relative w-full max-w-md rounded-[7px] border-white/10 shadow-2xl">
+        <CardHeader className="gap-4">
+          <div className="brand-mark">
+            <Sparkles className="size-5" />
+          </div>
+          <div>
+            <CardTitle className="text-2xl">
+              Welcome to Orbit
+            </CardTitle>
+            <CardDescription className="mt-1">
+              A focused workspace for everything that moves your
+              team forward.
+            </CardDescription>
+          </div>
+        </CardHeader>
 
-                <CardContent>
-                    <form onSubmit={submit} className="flex flex-col gap-5">
-                        <div className="flex flex-col gap-2">
-                            <Label htmlFor="username">Username</Label>
-                            <Input
-                                id="username"
-                                className="rounded-[7px] pr-0"
-                                placeholder="admin"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </div>
+        <CardContent>
+          <form onSubmit={submit} className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                className="rounded-[7px] pr-0"
+                placeholder="admin"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
 
-                        <div className="flex flex-col gap-2">
-                            <Label htmlFor="password">Password</Label>
-                            <Input
-                                id="password"
-                                className="rounded-[7px]"
-                                type="password"
-                                placeholder="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                className="rounded-[7px]"
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-                        <Button
-                            className="mt-2 w-full rounded-[7px] bg-primary text-primary-foreground hover:bg-primary/90"
-                            type="submit"
-                        >
-                            Sign in <ArrowUpRight data-icon="inline-end" />
-                        </Button>
+            <Button
+              className="mt-2 w-full rounded-[7px] bg-primary text-primary-foreground hover:bg-primary/90"
+              type="submit"
+            >
+              Sign in <ArrowUpRight data-icon="inline-end" />
+            </Button>
 
-                        <p className="text-center text-xs text-muted-foreground">
-                            Demo access:{" "}
-                            <span className="font-medium text-foreground">
-                                admin / password
-                            </span>
-                        </p>
-                    </form>
-                </CardContent>
-            </Card>
+            <p className="text-center text-xs text-muted-foreground">
+              Demo access:{" "}
+              <span className="font-medium text-foreground">
+                admin / password
+              </span>
+            </p>
+          </form>
+        </CardContent>
+      </Card>
 
-            <Toaster richColors position="top-right" />
-        </main>
-    );
+      <Toaster richColors position="top-right" />
+    </main>
+  );
 }
 
 function AppShell({
-    onLogout,
-    theme,
-    onThemeChange,
+  onLogout,
+  theme,
+  onThemeChange,
 }: {
-    onLogout: () => void;
-    theme: Theme;
-    onThemeChange: (theme: Theme) => void;
+  onLogout: () => void;
+  theme: Theme;
+  onThemeChange: (theme: Theme) => void;
 }) {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-    const [records, setRecords] = useState(initialRecords);
-    const [query, setQuery] = useState("");
-    const [editing, setEditing] = useState<RecordItem | null>(null);
-    const [dialogOpen, setDialogOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [records, setRecords] = useState(initialRecords);
+  const [query, setQuery] = useState("");
+  const [editing, setEditing] = useState<RecordItem | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
-    const filtered = useMemo(
-        () =>
-            records.filter((item) =>
-                `${item.name} ${item.category} ${item.status}`
-                    .toLowerCase()
-                    .includes(query.toLowerCase()),
-            ),
-        [records, query],
-    );
+  const filtered = useMemo(
+    () =>
+      records.filter((item) =>
+        `${item.name} ${item.category} ${item.status}`
+          .toLowerCase()
+          .includes(query.toLowerCase()),
+      ),
+    [records, query],
+  );
 
-    const save = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+  const save = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
 
-        const next: RecordItem = {
-            id: editing?.id ?? Date.now(),
-            name: String(data.get("name")),
-            category: String(data.get("category")),
-            status: (String(data.get("status")) ||
-                "Draft") as RecordItem["status"],
-            updated: "Just now",
-        };
-
-        setRecords((current) =>
-            editing
-                ? current.map((item) => (item.id === editing.id ? next : item))
-                : [next, ...current],
-        );
-        setDialogOpen(false);
-        setEditing(null);
-        toast.success(editing ? "Record updated" : "Record created");
+    const next: RecordItem = {
+      id: editing?.id ?? Date.now(),
+      name: String(data.get("name")),
+      category: String(data.get("category")),
+      status: (String(data.get("status")) ||
+        "Draft") as RecordItem["status"],
+      updated: "Just now",
     };
 
-    const remove = (id: number) => {
-        setRecords((current) => current.filter((item) => item.id !== id));
-        toast.success("Record deleted");
-    };
-
-    const nav = (
-        <nav className="flex flex-col gap-1">
-            <Link
-                onClick={() => setMobileOpen(false)}
-                className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
-                to="/"
-            >
-                <LayoutDashboard className="size-4" />
-                Overview
-            </Link>
-
-            <Link
-                onClick={() => setMobileOpen(false)}
-                className={`nav-link ${location.pathname === "/records" ? "active" : ""}`}
-                to="/records"
-            >
-                <Database className="size-4" />
-                Records{" "}
-                <Badge variant="secondary" className="ml-auto">
-                    {records.length}
-                </Badge>
-            </Link>
-
-            <Link
-                onClick={() => setMobileOpen(false)}
-                className={`nav-link ${location.pathname === "/settings" ? "active" : ""}`}
-                to="/settings"
-            >
-                <Settings2 className="size-4" />
-                Settings
-            </Link>
-        </nav>
+    setRecords((current) =>
+      editing
+        ? current.map((item) => (item.id === editing.id ? next : item))
+        : [next, ...current],
     );
+    setDialogOpen(false);
+    setEditing(null);
+    toast.success(editing ? "Record updated" : "Record created");
+  };
 
-    return (
-        <div className="flex min-h-screen flex-col overflow-hidden">
-            <div className="ambient ambient-pink" />
-            <footer className="fixed inset-x-0 bottom-0 z-10 border-t-2 border-border bg-background/90 px-5 py-3 text-center text-xs text-muted-foreground backdrop-blur-md sm:px-8">
-                Orbit Console · Built for focused operations
-            </footer>
-            <div className="ambient ambient-blue" />
+  const remove = (id: number) => {
+    setRecords((current) => current.filter((item) => item.id !== id));
+    toast.success("Record deleted");
+  };
 
-            <header className="topbar">
-                <div className="flex items-center gap-3">
-                    <Button
-                        className="hidden size-7 rounded-full p-0 md:inline-flex"
-                        variant="outline"
-                        size="icon"
-                        onClick={() => setSidebarCollapsed((value) => !value)}
-                        aria-label={
-                            sidebarCollapsed
-                                ? "Expand sidebar"
-                                : "Collapse sidebar"
-                        }
+  const nav = (
+    <nav className="flex flex-col gap-1">
+      <Link
+        onClick={() => setMobileOpen(false)}
+        className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+        to="/"
+      >
+        <LayoutDashboard className="size-4" />
+        Overview
+      </Link>
+
+      <Link
+        onClick={() => setMobileOpen(false)}
+        className={`nav-link ${location.pathname === "/records" ? "active" : ""}`}
+        to="/records"
+      >
+        <Database className="size-4" />
+        Records{" "}
+        <Badge variant="secondary" className="ml-auto">
+          {records.length}
+        </Badge>
+      </Link>
+
+      <Link
+        onClick={() => setMobileOpen(false)}
+        className={`nav-link ${location.pathname === "/settings" ? "active" : ""}`}
+        to="/settings"
+      >
+        <Settings2 className="size-4" />
+        Settings
+      </Link>
+    </nav>
+  );
+
+  return (
+    <div className="flex min-h-screen flex-col overflow-hidden">
+      <div className="ambient ambient-pink" />
+      <footer className="fixed inset-x-0 bottom-0 z-10 border-t-2 border-border bg-background/90 px-5 py-3 text-center text-xs text-muted-foreground backdrop-blur-md sm:px-8">
+        Orbit Console · Built for focused operations
+      </footer>
+      <div className="ambient ambient-blue" />
+
+      <header className="topbar">
+        <div className="flex items-center gap-3">
+          <Button
+            className="hidden size-7 rounded-full p-0 md:inline-flex"
+            variant="outline"
+            size="icon"
+            onClick={() => setSidebarCollapsed((value) => !value)}
+            aria-label={
+              sidebarCollapsed
+                ? "Expand sidebar"
+                : "Collapse sidebar"
+            }
+          >
+            <Menu />
+          </Button>
+
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild>
+              <Button
+                className="md:hidden"
+                variant="ghost"
+                size="icon"
+                aria-label="Open navigation"
+              >
+                <Menu />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent
+              side="left"
+              className="flex w-72 flex-col border-border bg-background/95"
+            >
+              <SheetTitle className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">
+                WORKSPACE
+              </SheetTitle>
+              {nav}
+              <div className="sidebar-note mt-auto flex items-center gap-3 rounded-[7px] border border-border/70 bg-muted/40 p-3 text-xs text-muted-foreground">
+                <ShieldCheck className="size-4 shrink-0 text-primary" />
+                <span>Secure by design</span>
+              </div>
+            </SheetContent>
+          </Sheet>
+
+          <Link
+            to="/"
+            className="flex items-center gap-2 font-semibold tracking-tight"
+          >
+            <span className="brand-mark small">
+              <Sparkles className="size-4" />
+            </span>
+            orbit
+            <span className="text-muted-foreground">/ console</span>
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => toast.info("You are signed in as admin")}
+          >
+            <CircleUserRound className="size-4" />{" "}
+            <span className="hidden sm:inline">admin</span>
+          </Button>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              onLogout();
+              toast.success("Signed out");
+            }}
+          >
+            <LogOut data-icon="inline-start" />
+            Logout
+          </Button>
+        </div>
+      </header>
+
+      <div className="relative mx-auto flex w-full max-w-[1440px] flex-1">
+        <aside
+          className={`sidebar ${sidebarCollapsed ? "sidebar-collapsed" : ""} hidden shrink-0 border-r border-border px-5 py-8 transition-[width] md:block ${sidebarCollapsed ? "w-20" : "w-64"
+            }`}
+        >
+          <p className="eyebrow mb-4 px-3">Workspace</p>
+          {nav}
+          <Separator className="my-7 opacity-40" />
+
+          <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 sidebar-note">
+            <ShieldCheck className="mb-3 size-5 text-[var(--blue)]" />
+            <p className="text-sm font-medium">
+              <span className="sidebar-note">
+                Secure by design
+              </span>
+            </p>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">
+              Your workspace is connected to a private Postgres
+              instance.
+            </p>
+          </div>
+        </aside>
+
+        <main className="min-w-0 flex-1 px-5 py-7 sm:px-8 lg:px-12 lg:py-10">
+          <Routes>
+            <Route
+              path="/login"
+              element={<Navigate to="/" replace />}
+            />
+            <Route
+              path="/"
+              element={<Overview records={records} />}
+            />
+
+            <Route
+              path="/records"
+              element={
+                <>
+                  <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+                    <div>
+                      <p className="eyebrow">
+                        Data workspace
+                      </p>
+                      <h1 className="page-title">
+                        Records
+                      </h1>
+                      <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+                        Create, track, and manage the
+                        operational records that keep
+                        your team moving.
+                      </p>
+                    </div>
+
+                    <Dialog
+                      open={dialogOpen}
+                      onOpenChange={(open) => {
+                        setDialogOpen(open);
+                        if (!open) setEditing(null);
+                      }}
                     >
-                        <Menu />
-                    </Button>
+                      <DialogTrigger asChild>
+                        <Button className="bg-[var(--pink)] text-white hover:bg-[var(--pink)]/90">
+                          <Plus data-icon="inline-start" />
+                          New record
+                        </Button>
+                      </DialogTrigger>
 
-                    <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-                        <SheetTrigger asChild>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>
+                            {editing
+                              ? "Edit record"
+                              : "Create record"}
+                          </DialogTitle>
+                          <DialogDescription>
+                            Changes sync to your
+                            Spring Boot API and Neon
+                            Postgres database.
+                          </DialogDescription>
+                        </DialogHeader>
+
+                        <form
+                          onSubmit={save}
+                          className="flex flex-col gap-4"
+                        >
+                          <div className="flex flex-col gap-2">
+                            <Label htmlFor="name">
+                              Name
+                            </Label>
+                            <Input
+                              id="name"
+                              name="name"
+                              required
+                              defaultValue={
+                                editing?.name
+                              }
+                            />
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            <Label htmlFor="category">
+                              Category
+                            </Label>
+                            <Input
+                              id="category"
+                              name="category"
+                              required
+                              defaultValue={
+                                editing?.category
+                              }
+                            />
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            <Label htmlFor="status">
+                              Status
+                            </Label>
+                            <Select
+                              name="status"
+                              defaultValue={
+                                editing?.status ??
+                                "Draft"
+                              }
+                            >
+                              <SelectTrigger id="status">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="Active">
+                                  Active
+                                </SelectItem>
+                                <SelectItem value="Draft">
+                                  Draft
+                                </SelectItem>
+                                <SelectItem value="Paused">
+                                  Paused
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+
+                          <DialogFooter>
                             <Button
-                                className="md:hidden"
+                              type="submit"
+                              className="bg-[var(--pink)] text-white hover:bg-[var(--pink)]/90"
+                            >
+                              {editing
+                                ? "Save changes"
+                                : "Create record"}
+                            </Button>
+                          </DialogFooter>
+                        </form>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+
+                  <Card className="glass-card">
+                    <CardHeader className="gap-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <CardTitle className="text-lg">
+                          All records
+                        </CardTitle>
+                        <CardDescription>
+                          {filtered.length} of{" "}
+                          {records.length} records
+                        </CardDescription>
+                      </div>
+
+                      <div className="relative w-full sm:w-64">
+                        <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input
+                          value={query}
+                          onChange={(e) =>
+                            setQuery(e.target.value)
+                          }
+                          placeholder="Search records..."
+                          className="pl-9"
+                        />
+                      </div>
+                    </CardHeader>
+
+                    <CardContent>
+                      <div className="hidden overflow-x-auto md:block">
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>
+                                Name
+                              </TableHead>
+                              <TableHead>
+                                Category
+                              </TableHead>
+                              <TableHead>
+                                Status
+                              </TableHead>
+                              <TableHead>
+                                Updated
+                              </TableHead>
+                              <TableHead className="text-right">
+                                Actions
+                              </TableHead>
+                            </TableRow>
+                          </TableHeader>
+
+                          <TableBody>
+                            {filtered.map(
+                              (item) => (
+                                <TableRow
+                                  key={
+                                    item.id
+                                  }
+                                >
+                                  <TableCell className="font-medium">
+                                    {
+                                      item.name
+                                    }
+                                  </TableCell>
+                                  <TableCell className="text-muted-foreground">
+                                    {
+                                      item.category
+                                    }
+                                  </TableCell>
+                                  <TableCell>
+                                    <Badge
+                                      variant={
+                                        item.status ===
+                                          "Active"
+                                          ? "default"
+                                          : "secondary"
+                                      }
+                                    >
+                                      {
+                                        item.status
+                                      }
+                                    </Badge>
+                                  </TableCell>
+                                  <TableCell className="text-muted-foreground">
+                                    {
+                                      item.updated
+                                    }
+                                  </TableCell>
+
+                                  <TableCell>
+                                    <div className="flex justify-end gap-1">
+                                      <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        aria-label={`Edit ${item.name}`}
+                                        onClick={() => {
+                                          setEditing(
+                                            item,
+                                          );
+                                          setDialogOpen(
+                                            true,
+                                          );
+                                        }}
+                                      >
+                                        <Pencil />
+                                      </Button>
+
+                                      <AlertDialog>
+                                        <AlertDialogTrigger
+                                          asChild
+                                        >
+                                          <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            aria-label={`Delete ${item.name}`}
+                                          >
+                                            <Trash2 />
+                                          </Button>
+                                        </AlertDialogTrigger>
+
+                                        <AlertDialogContent>
+                                          <AlertDialogHeader>
+                                            <AlertDialogTitle>
+                                              Delete
+                                              this
+                                              record?
+                                            </AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                              This
+                                              action
+                                              cannot
+                                              be
+                                              undone.
+                                              The
+                                              record
+                                              will
+                                              be
+                                              removed
+                                              from
+                                              Neon
+                                              Postgres.
+                                            </AlertDialogDescription>
+                                          </AlertDialogHeader>
+
+                                          <AlertDialogFooter>
+                                            <AlertDialogCancel>
+                                              Cancel
+                                            </AlertDialogCancel>
+                                            <AlertDialogAction
+                                              onClick={() =>
+                                                remove(
+                                                  item.id,
+                                                )
+                                              }
+                                            >
+                                              Delete
+                                            </AlertDialogAction>
+                                          </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                      </AlertDialog>
+                                    </div>
+                                  </TableCell>
+                                </TableRow>
+                              ),
+                            )}
+                          </TableBody>
+                        </Table>
+                      </div>
+
+                      <div className="flex flex-col gap-3 md:hidden">
+                        {filtered.map((item) => (
+                          <div
+                            className="mobile-record"
+                            key={item.id}
+                          >
+                            <div className="min-w-0">
+                              <p className="truncate font-medium">
+                                {item.name}
+                              </p>
+                              <p className="mt-1 text-xs text-muted-foreground">
+                                {item.category}{" "}
+                                · {item.updated}
+                              </p>
+                            </div>
+
+                            <div className="flex items-center gap-1">
+                              <Badge
+                                variant={
+                                  item.status ===
+                                    "Active"
+                                    ? "default"
+                                    : "secondary"
+                                }
+                              >
+                                {item.status}
+                              </Badge>
+                              <Button
                                 variant="ghost"
                                 size="icon"
-                                aria-label="Open navigation"
-                            >
-                                <Menu />
-                            </Button>
-                        </SheetTrigger>
-
-                        <SheetContent
-                            side="left"
-                            className="flex w-72 flex-col border-border bg-background/95"
-                        >
-                            <SheetTitle className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">
-                                WORKSPACE
-                            </SheetTitle>
-                            {nav}
-                            <div className="sidebar-note mt-auto flex items-center gap-3 rounded-[7px] border border-border/70 bg-muted/40 p-3 text-xs text-muted-foreground">
-                                <ShieldCheck className="size-4 shrink-0 text-primary" />
-                                <span>Secure by design</span>
+                                onClick={() => {
+                                  setEditing(
+                                    item,
+                                  );
+                                  setDialogOpen(
+                                    true,
+                                  );
+                                }}
+                              >
+                                <Pencil />
+                              </Button>
                             </div>
-                        </SheetContent>
-                    </Sheet>
+                          </div>
+                        ))}
+                      </div>
 
-                    <Link
-                        to="/"
-                        className="flex items-center gap-2 font-semibold tracking-tight"
-                    >
-                        <span className="brand-mark small">
-                            <Sparkles className="size-4" />
-                        </span>
-                        orbit
-                        <span className="text-muted-foreground">/ console</span>
-                    </Link>
-                </div>
+                      {filtered.length === 0 && (
+                        <div className="flex flex-col items-center gap-2 py-12 text-center">
+                          <AlertCircle className="size-6 text-muted-foreground" />
+                          <p className="font-medium">
+                            No records found
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Try another search or
+                            create a new record.
+                          </p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </>
+              }
+            />
 
-                <div className="flex items-center gap-2">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => toast.info("You are signed in as admin")}
-                    >
-                        <CircleUserRound className="size-4" />{" "}
-                        <span className="hidden sm:inline">admin</span>
-                    </Button>
+            <Route
+              path="/settings"
+              element={
+                <Settings
+                  theme={theme}
+                  onThemeChange={onThemeChange}
+                />
+              }
+            />
+            <Route path="*" element={<NotFound authenticated />} />
+          </Routes>
 
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                            onLogout();
-                            toast.success("Signed out");
-                        }}
-                    >
-                        <LogOut data-icon="inline-start" />
-                        Logout
-                    </Button>
-                </div>
-            </header>
-
-            <div className="relative mx-auto flex w-full max-w-[1440px] flex-1">
-                <aside
-                    className={`sidebar ${sidebarCollapsed ? "sidebar-collapsed" : ""} hidden shrink-0 border-r border-border px-5 py-8 transition-[width] md:block ${
-                        sidebarCollapsed ? "w-20" : "w-64"
-                    }`}
-                >
-                    <p className="eyebrow mb-4 px-3">Workspace</p>
-                    {nav}
-                    <Separator className="my-7 opacity-40" />
-
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                        <ShieldCheck className="mb-3 size-5 text-[var(--blue)]" />
-                        <p className="text-sm font-medium">
-                            <span className="sidebar-note">
-                                Secure by design
-                            </span>
-                        </p>
-                        <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                            Your workspace is connected to a private Postgres
-                            instance.
-                        </p>
-                    </div>
-                </aside>
-
-                <main className="min-w-0 flex-1 px-5 py-7 sm:px-8 lg:px-12 lg:py-10">
-                    <Routes>
-                        <Route
-                            path="/login"
-                            element={<Navigate to="/" replace />}
-                        />
-                        <Route
-                            path="/"
-                            element={<Overview records={records} />}
-                        />
-
-                        <Route
-                            path="/records"
-                            element={
-                                <>
-                                    <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-                                        <div>
-                                            <p className="eyebrow">
-                                                Data workspace
-                                            </p>
-                                            <h1 className="page-title">
-                                                Records
-                                            </h1>
-                                            <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-                                                Create, track, and manage the
-                                                operational records that keep
-                                                your team moving.
-                                            </p>
-                                        </div>
-
-                                        <Dialog
-                                            open={dialogOpen}
-                                            onOpenChange={(open) => {
-                                                setDialogOpen(open);
-                                                if (!open) setEditing(null);
-                                            }}
-                                        >
-                                            <DialogTrigger asChild>
-                                                <Button className="bg-[var(--pink)] text-white hover:bg-[var(--pink)]/90">
-                                                    <Plus data-icon="inline-start" />
-                                                    New record
-                                                </Button>
-                                            </DialogTrigger>
-
-                                            <DialogContent>
-                                                <DialogHeader>
-                                                    <DialogTitle>
-                                                        {editing
-                                                            ? "Edit record"
-                                                            : "Create record"}
-                                                    </DialogTitle>
-                                                    <DialogDescription>
-                                                        Changes sync to your
-                                                        Spring Boot API and Neon
-                                                        Postgres database.
-                                                    </DialogDescription>
-                                                </DialogHeader>
-
-                                                <form
-                                                    onSubmit={save}
-                                                    className="flex flex-col gap-4"
-                                                >
-                                                    <div className="flex flex-col gap-2">
-                                                        <Label htmlFor="name">
-                                                            Name
-                                                        </Label>
-                                                        <Input
-                                                            id="name"
-                                                            name="name"
-                                                            required
-                                                            defaultValue={
-                                                                editing?.name
-                                                            }
-                                                        />
-                                                    </div>
-
-                                                    <div className="flex flex-col gap-2">
-                                                        <Label htmlFor="category">
-                                                            Category
-                                                        </Label>
-                                                        <Input
-                                                            id="category"
-                                                            name="category"
-                                                            required
-                                                            defaultValue={
-                                                                editing?.category
-                                                            }
-                                                        />
-                                                    </div>
-
-                                                    <div className="flex flex-col gap-2">
-                                                        <Label htmlFor="status">
-                                                            Status
-                                                        </Label>
-                                                        <Select
-                                                            name="status"
-                                                            defaultValue={
-                                                                editing?.status ??
-                                                                "Draft"
-                                                            }
-                                                        >
-                                                            <SelectTrigger id="status">
-                                                                <SelectValue />
-                                                            </SelectTrigger>
-                                                            <SelectContent>
-                                                                <SelectItem value="Active">
-                                                                    Active
-                                                                </SelectItem>
-                                                                <SelectItem value="Draft">
-                                                                    Draft
-                                                                </SelectItem>
-                                                                <SelectItem value="Paused">
-                                                                    Paused
-                                                                </SelectItem>
-                                                            </SelectContent>
-                                                        </Select>
-                                                    </div>
-
-                                                    <DialogFooter>
-                                                        <Button
-                                                            type="submit"
-                                                            className="bg-[var(--pink)] text-white hover:bg-[var(--pink)]/90"
-                                                        >
-                                                            {editing
-                                                                ? "Save changes"
-                                                                : "Create record"}
-                                                        </Button>
-                                                    </DialogFooter>
-                                                </form>
-                                            </DialogContent>
-                                        </Dialog>
-                                    </div>
-
-                                    <Card className="glass-card">
-                                        <CardHeader className="gap-4 sm:flex-row sm:items-center sm:justify-between">
-                                            <div>
-                                                <CardTitle className="text-lg">
-                                                    All records
-                                                </CardTitle>
-                                                <CardDescription>
-                                                    {filtered.length} of{" "}
-                                                    {records.length} records
-                                                </CardDescription>
-                                            </div>
-
-                                            <div className="relative w-full sm:w-64">
-                                                <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                                                <Input
-                                                    value={query}
-                                                    onChange={(e) =>
-                                                        setQuery(e.target.value)
-                                                    }
-                                                    placeholder="Search records..."
-                                                    className="pl-9"
-                                                />
-                                            </div>
-                                        </CardHeader>
-
-                                        <CardContent>
-                                            <div className="hidden overflow-x-auto md:block">
-                                                <Table>
-                                                    <TableHeader>
-                                                        <TableRow>
-                                                            <TableHead>
-                                                                Name
-                                                            </TableHead>
-                                                            <TableHead>
-                                                                Category
-                                                            </TableHead>
-                                                            <TableHead>
-                                                                Status
-                                                            </TableHead>
-                                                            <TableHead>
-                                                                Updated
-                                                            </TableHead>
-                                                            <TableHead className="text-right">
-                                                                Actions
-                                                            </TableHead>
-                                                        </TableRow>
-                                                    </TableHeader>
-
-                                                    <TableBody>
-                                                        {filtered.map(
-                                                            (item) => (
-                                                                <TableRow
-                                                                    key={
-                                                                        item.id
-                                                                    }
-                                                                >
-                                                                    <TableCell className="font-medium">
-                                                                        {
-                                                                            item.name
-                                                                        }
-                                                                    </TableCell>
-                                                                    <TableCell className="text-muted-foreground">
-                                                                        {
-                                                                            item.category
-                                                                        }
-                                                                    </TableCell>
-                                                                    <TableCell>
-                                                                        <Badge
-                                                                            variant={
-                                                                                item.status ===
-                                                                                "Active"
-                                                                                    ? "default"
-                                                                                    : "secondary"
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                item.status
-                                                                            }
-                                                                        </Badge>
-                                                                    </TableCell>
-                                                                    <TableCell className="text-muted-foreground">
-                                                                        {
-                                                                            item.updated
-                                                                        }
-                                                                    </TableCell>
-
-                                                                    <TableCell>
-                                                                        <div className="flex justify-end gap-1">
-                                                                            <Button
-                                                                                variant="ghost"
-                                                                                size="icon"
-                                                                                aria-label={`Edit ${item.name}`}
-                                                                                onClick={() => {
-                                                                                    setEditing(
-                                                                                        item,
-                                                                                    );
-                                                                                    setDialogOpen(
-                                                                                        true,
-                                                                                    );
-                                                                                }}
-                                                                            >
-                                                                                <Pencil />
-                                                                            </Button>
-
-                                                                            <AlertDialog>
-                                                                                <AlertDialogTrigger
-                                                                                    asChild
-                                                                                >
-                                                                                    <Button
-                                                                                        variant="ghost"
-                                                                                        size="icon"
-                                                                                        aria-label={`Delete ${item.name}`}
-                                                                                    >
-                                                                                        <Trash2 />
-                                                                                    </Button>
-                                                                                </AlertDialogTrigger>
-
-                                                                                <AlertDialogContent>
-                                                                                    <AlertDialogHeader>
-                                                                                        <AlertDialogTitle>
-                                                                                            Delete
-                                                                                            this
-                                                                                            record?
-                                                                                        </AlertDialogTitle>
-                                                                                        <AlertDialogDescription>
-                                                                                            This
-                                                                                            action
-                                                                                            cannot
-                                                                                            be
-                                                                                            undone.
-                                                                                            The
-                                                                                            record
-                                                                                            will
-                                                                                            be
-                                                                                            removed
-                                                                                            from
-                                                                                            Neon
-                                                                                            Postgres.
-                                                                                        </AlertDialogDescription>
-                                                                                    </AlertDialogHeader>
-
-                                                                                    <AlertDialogFooter>
-                                                                                        <AlertDialogCancel>
-                                                                                            Cancel
-                                                                                        </AlertDialogCancel>
-                                                                                        <AlertDialogAction
-                                                                                            onClick={() =>
-                                                                                                remove(
-                                                                                                    item.id,
-                                                                                                )
-                                                                                            }
-                                                                                        >
-                                                                                            Delete
-                                                                                        </AlertDialogAction>
-                                                                                    </AlertDialogFooter>
-                                                                                </AlertDialogContent>
-                                                                            </AlertDialog>
-                                                                        </div>
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                            ),
-                                                        )}
-                                                    </TableBody>
-                                                </Table>
-                                            </div>
-
-                                            <div className="flex flex-col gap-3 md:hidden">
-                                                {filtered.map((item) => (
-                                                    <div
-                                                        className="mobile-record"
-                                                        key={item.id}
-                                                    >
-                                                        <div className="min-w-0">
-                                                            <p className="truncate font-medium">
-                                                                {item.name}
-                                                            </p>
-                                                            <p className="mt-1 text-xs text-muted-foreground">
-                                                                {item.category}{" "}
-                                                                · {item.updated}
-                                                            </p>
-                                                        </div>
-
-                                                        <div className="flex items-center gap-1">
-                                                            <Badge
-                                                                variant={
-                                                                    item.status ===
-                                                                    "Active"
-                                                                        ? "default"
-                                                                        : "secondary"
-                                                                }
-                                                            >
-                                                                {item.status}
-                                                            </Badge>
-                                                            <Button
-                                                                variant="ghost"
-                                                                size="icon"
-                                                                onClick={() => {
-                                                                    setEditing(
-                                                                        item,
-                                                                    );
-                                                                    setDialogOpen(
-                                                                        true,
-                                                                    );
-                                                                }}
-                                                            >
-                                                                <Pencil />
-                                                            </Button>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-
-                                            {filtered.length === 0 && (
-                                                <div className="flex flex-col items-center gap-2 py-12 text-center">
-                                                    <AlertCircle className="size-6 text-muted-foreground" />
-                                                    <p className="font-medium">
-                                                        No records found
-                                                    </p>
-                                                    <p className="text-sm text-muted-foreground">
-                                                        Try another search or
-                                                        create a new record.
-                                                    </p>
-                                                </div>
-                                            )}
-                                        </CardContent>
-                                    </Card>
-                                </>
-                            }
-                        />
-
-                        <Route
-                            path="/settings"
-                            element={
-                                <Settings
-                                    theme={theme}
-                                    onThemeChange={onThemeChange}
-                                />
-                            }
-                        />
-                        <Route path="*" element={<NotFound authenticated />} />
-                    </Routes>
-
-                    <footer className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-                        <span>Orbit Console · 2026</span>
-                        <span>
-                            React frontend · Spring Boot API · Neon Postgres
-                        </span>
-                    </footer>
-                </main>
-            </div>
-        </div>
-    );
+          <footer className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+            <span>Orbit Console · 2026</span>
+            <span>
+              React frontend · Spring Boot API · Neon Postgres
+            </span>
+          </footer>
+        </main>
+      </div>
+    </div>
+  );
 }
 
 function Overview({ records }: { records: RecordItem[] }) {
-    return (
-        <div>
-            <div className="mb-10">
-                <p className="eyebrow">Monday, August 24, 2026</p>
-                <h1 className="page-title">Good morning, admin.</h1>
-                <p className="mt-3 max-w-xl text-pretty text-muted-foreground">
-                    A calm, clear view of the work that matters. Here is what is
-                    happening across your workspace.
+  return (
+    <div>
+      <div className="mb-10">
+        <p className="eyebrow">Monday, August 24, 2026</p>
+        <h1 className="page-title">Good morning, admin.</h1>
+        <p className="mt-3 max-w-xl text-pretty text-muted-foreground">
+          A calm, clear view of the work that matters. Here is what is
+          happening across your workspace.
+        </p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        <Card className="glass-card stat-card">
+          <CardHeader>
+            <CardDescription>Total records</CardDescription>
+            <CardTitle>{records.length}</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <p className="text-xs text-muted-foreground">
+              <span className="text-[var(--blue)]">+12.5%</span>{" "}
+              from last month
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="glass-card stat-card">
+          <CardHeader>
+            <CardDescription>Active workflows</CardDescription>
+            <CardTitle>
+              {
+                records.filter((r) => r.status === "Active")
+                  .length
+              }
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <p className="text-xs text-muted-foreground">
+              All systems operational
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="glass-card stat-card">
+          <CardHeader>
+            <CardDescription>API status</CardDescription>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <span className="status-dot" />
+              Connected
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <p className="text-xs text-muted-foreground">
+              Neon Postgres · us-east-1
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="glass-card mt-4">
+        <CardHeader className="flex-row items-center justify-between">
+          <div>
+            <CardTitle className="text-lg">
+              Recent activity
+            </CardTitle>
+            <CardDescription>
+              Your latest workspace changes.
+            </CardDescription>
+          </div>
+
+          <Badge variant="outline">Live</Badge>
+        </CardHeader>
+
+        <CardContent className="flex flex-col gap-1">
+          {records.slice(0, 3).map((item) => (
+            <div key={item.id} className="activity-row">
+              <div className="activity-icon">
+                <Check className="size-4" />
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">
+                  {item.name}
                 </p>
+                <p className="text-xs text-muted-foreground">
+                  Updated in {item.category}
+                </p>
+              </div>
+
+              <span className="text-xs text-muted-foreground">
+                {item.updated}
+              </span>
             </div>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-                <Card className="glass-card stat-card">
-                    <CardHeader>
-                        <CardDescription>Total records</CardDescription>
-                        <CardTitle>{records.length}</CardTitle>
-                    </CardHeader>
-
-                    <CardContent>
-                        <p className="text-xs text-muted-foreground">
-                            <span className="text-[var(--blue)]">+12.5%</span>{" "}
-                            from last month
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <Card className="glass-card stat-card">
-                    <CardHeader>
-                        <CardDescription>Active workflows</CardDescription>
-                        <CardTitle>
-                            {
-                                records.filter((r) => r.status === "Active")
-                                    .length
-                            }
-                        </CardTitle>
-                    </CardHeader>
-
-                    <CardContent>
-                        <p className="text-xs text-muted-foreground">
-                            All systems operational
-                        </p>
-                    </CardContent>
-                </Card>
-
-                <Card className="glass-card stat-card">
-                    <CardHeader>
-                        <CardDescription>API status</CardDescription>
-                        <CardTitle className="flex items-center gap-2 text-lg">
-                            <span className="status-dot" />
-                            Connected
-                        </CardTitle>
-                    </CardHeader>
-
-                    <CardContent>
-                        <p className="text-xs text-muted-foreground">
-                            Neon Postgres · us-east-1
-                        </p>
-                    </CardContent>
-                </Card>
-            </div>
-
-            <Card className="glass-card mt-4">
-                <CardHeader className="flex-row items-center justify-between">
-                    <div>
-                        <CardTitle className="text-lg">
-                            Recent activity
-                        </CardTitle>
-                        <CardDescription>
-                            Your latest workspace changes.
-                        </CardDescription>
-                    </div>
-
-                    <Badge variant="outline">Live</Badge>
-                </CardHeader>
-
-                <CardContent className="flex flex-col gap-1">
-                    {records.slice(0, 3).map((item) => (
-                        <div key={item.id} className="activity-row">
-                            <div className="activity-icon">
-                                <Check className="size-4" />
-                            </div>
-
-                            <div className="min-w-0 flex-1">
-                                <p className="truncate text-sm font-medium">
-                                    {item.name}
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                    Updated in {item.category}
-                                </p>
-                            </div>
-
-                            <span className="text-xs text-muted-foreground">
-                                {item.updated}
-                            </span>
-                        </div>
-                    ))}
-                </CardContent>
-            </Card>
-        </div>
-    );
+          ))}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
 
 function NotFound({ authenticated }: { authenticated: boolean }) {
-    return (
-        <main className="grid min-h-screen place-items-center p-6 text-center">
-            <Card className="glass-card w-full max-w-md rounded-[7px] p-8">
-                <CardHeader>
-                    <CardTitle>Page not found</CardTitle>
-                    <CardDescription>
-                        We could not find the page you were looking for.
-                    </CardDescription>
-                </CardHeader>
+  return (
+    <main className="grid min-h-screen place-items-center p-6 text-center">
+      <Card className="glass-card w-full max-w-md rounded-[7px] p-8">
+        <CardHeader>
+          <CardTitle>Page not found</CardTitle>
+          <CardDescription>
+            We could not find the page you were looking for.
+          </CardDescription>
+        </CardHeader>
 
-                <CardContent>
-                    <Link
-                        className="text-primary underline underline-offset-4"
-                        to={authenticated ? "/" : "/login"}
-                    >
-                        {authenticated
-                            ? "Return to dashboard"
-                            : "Return to login"}
-                    </Link>
-                </CardContent>
-            </Card>
-        </main>
-    );
+        <CardContent>
+          <Link
+            className="text-primary underline underline-offset-4"
+            to={authenticated ? "/" : "/login"}
+          >
+            {authenticated
+              ? "Return to dashboard"
+              : "Return to login"}
+          </Link>
+        </CardContent>
+      </Card>
+    </main>
+  );
 }
 
 type Theme = "system" | "light" | "dark";
 
 function Settings({
-    theme,
-    onThemeChange,
+  theme,
+  onThemeChange,
 }: {
-    theme: Theme;
-    onThemeChange: (theme: Theme) => void;
+  theme: Theme;
+  onThemeChange: (theme: Theme) => void;
 }) {
-    return (
-        <div>
-            <p className="eyebrow">Workspace preferences</p>
-            <h1 className="page-title">Settings</h1>
+  return (
+    <div>
+      <p className="eyebrow">Workspace preferences</p>
+      <h1 className="page-title">Settings</h1>
 
-            <Card className="glass-card mt-8 max-w-2xl">
-                <CardHeader>
-                    <CardTitle className="text-lg">Appearance</CardTitle>
-                    <CardDescription>
-                        Choose how Orbit should look on this device.
-                    </CardDescription>
-                </CardHeader>
+      <Card className="glass-card mt-8 max-w-2xl">
+        <CardHeader>
+          <CardTitle className="text-lg">Appearance</CardTitle>
+          <CardDescription>
+            Choose how Orbit should look on this device.
+          </CardDescription>
+        </CardHeader>
 
-                <CardContent>
-                    <Select
-                        value={theme}
-                        onValueChange={(value) => {
-                            onThemeChange(value as Theme);
-                            toast.success(
-                                `${value === "system" ? "System" : value === "light" ? "Light" : "Dark"} theme applied`,
-                            );
-                        }}
-                    >
-                        <SelectTrigger aria-label="Color theme">
-                            <SelectValue />
-                        </SelectTrigger>
+        <CardContent>
+          <Select
+            value={theme}
+            onValueChange={(value) => {
+              onThemeChange(value as Theme);
+              toast.success(
+                `${value === "system" ? "System" : value === "light" ? "Light" : "Dark"} theme applied`,
+              );
+            }}
+          >
+            <SelectTrigger aria-label="Color theme">
+              <SelectValue />
+            </SelectTrigger>
 
-                        <SelectContent>
-                            <SelectItem value="system">System</SelectItem>
-                            <SelectItem value="light">Light</SelectItem>
-                            <SelectItem value="dark">Dark</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </CardContent>
-            </Card>
-        </div>
-    );
+            <SelectContent>
+              <SelectItem value="system">System</SelectItem>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+            </SelectContent>
+          </Select>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
 
 function Root() {
-    const [authenticated, setAuthenticated] = useState(false);
-    const [mounted, setMounted] = useState(false);
-    const [theme, setTheme] = useState<Theme>("system");
+  const [authenticated, setAuthenticated] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>("system");
 
-    useEffect(() => {
-        setMounted(true);
-        setAuthenticated(
-            window.sessionStorage.getItem("orbit-authenticated") === "true",
-        );
-
-        const savedTheme = window.localStorage.getItem(
-            "orbit-theme",
-        ) as Theme | null;
-        if (
-            savedTheme === "light" ||
-            savedTheme === "dark" ||
-            savedTheme === "system"
-        )
-            setTheme(savedTheme);
-    }, []);
-
-    useEffect(() => {
-        if (!mounted) return;
-
-        const root = document.documentElement;
-        const isDark =
-            theme === "dark" ||
-            (theme === "system" &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches);
-        root.classList.toggle("dark", isDark);
-        root.style.colorScheme = isDark ? "dark" : "light";
-        window.localStorage.setItem("orbit-theme", theme);
-    }, [theme, mounted]);
-
-    if (!mounted) return <main className="min-h-screen bg-background" />;
-
-    return (
-        <BrowserRouter>
-            {authenticated ? (
-                <AppShell
-                    onLogout={() => {
-                        window.sessionStorage.removeItem("orbit-authenticated");
-                        setAuthenticated(false);
-                    }}
-                    theme={theme}
-                    onThemeChange={setTheme}
-                />
-            ) : (
-                <Routes>
-                    <Route
-                        path="/login"
-                        element={
-                            <Login
-                                onLogin={() => {
-                                    window.sessionStorage.setItem(
-                                        "orbit-authenticated",
-                                        "true",
-                                    );
-                                    setAuthenticated(true);
-                                }}
-                            />
-                        }
-                    />
-                    <Route
-                        path="*"
-                        element={<NotFound authenticated={false} />}
-                    />
-                </Routes>
-            )}
-
-            <Toaster richColors position="top-right" />
-        </BrowserRouter>
+  useEffect(() => {
+    setMounted(true);
+    setAuthenticated(
+      window.sessionStorage.getItem("orbit-authenticated") === "true",
     );
+
+    const savedTheme = window.localStorage.getItem(
+      "orbit-theme",
+    ) as Theme | null;
+    if (
+      savedTheme === "light" ||
+      savedTheme === "dark" ||
+      savedTheme === "system"
+    )
+      setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const root = document.documentElement;
+    const isDark =
+      theme === "dark" ||
+      (theme === "system" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    root.classList.toggle("dark", isDark);
+    root.style.colorScheme = isDark ? "dark" : "light";
+    window.localStorage.setItem("orbit-theme", theme);
+  }, [theme, mounted]);
+
+  if (!mounted) return <main className="min-h-screen bg-background" />;
+
+  return (
+    <BrowserRouter>
+      {authenticated ? (
+        <AppShell
+          onLogout={() => {
+            window.sessionStorage.removeItem("orbit-authenticated");
+            setAuthenticated(false);
+          }}
+          theme={theme}
+          onThemeChange={setTheme}
+        />
+      ) : (
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <Login
+                onLogin={() => {
+                  window.sessionStorage.setItem(
+                    "orbit-authenticated",
+                    "true",
+                  );
+                  setAuthenticated(true);
+                }}
+              />
+            }
+          />
+          <Route
+            path="*"
+            element={<NotFound authenticated={false} />}
+          />
+        </Routes>
+      )}
+
+      <Toaster richColors position="top-right" />
+    </BrowserRouter>
+  );
 }
 
 export default Root;
