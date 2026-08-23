@@ -337,11 +337,13 @@ function AppShell({
 
                         <SheetContent
                             side="left"
-                            className="flex w-72 flex-col bg-background/95"
+                            className="flex w-72 flex-col bg-background/95 gap-10"
                         >
-                            <SheetTitle className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">
-                                WORKSPACE
-                            </SheetTitle>
+                            <div className="mb-3">
+                                <SheetTitle className="absolute top-4 left-3 eyebrow px-3 text-base font-semibold tracking-[.16em]">
+                                    WORKSPACE
+                                </SheetTitle>
+                            </div>
                             {nav}
                             <div className="sidebar-note mt-auto flex items-center gap-3 border-t border-border/70 bg-muted/40 p-3 text-xs text-muted-foreground">
                                 <ShieldCheck className="size-4 shrink-0 text-primary" />
