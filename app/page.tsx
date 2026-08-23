@@ -266,7 +266,7 @@ function AppShell({
     };
 
     const nav = (
-        <nav className="flex flex-col gap-1">
+        <nav className="flex flex-col gap-1 px-2">
             <Link
                 onClick={() => setMobileOpen(false)}
                 className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
@@ -340,10 +340,10 @@ function AppShell({
                             className="flex w-72 flex-col border-border bg-background/95"
                         >
                             <SheetTitle className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">
-                                WORKSPACE
+                                WORKSPACEX
                             </SheetTitle>
                             {nav}
-                            <div className="sidebar-note mt-auto flex items-center gap-3 rounded-[7px] border border-border/70 bg-muted/40 p-3 text-xs text-muted-foreground">
+                            <div className="sidebar-note mt-auto flex items-center gap-3 border-t border-border/70 bg-muted/40 p-3 text-xs text-muted-foreground">
                                 <ShieldCheck className="size-4 shrink-0 text-primary" />
                                 <span>Secure by design</span>
                             </div>
