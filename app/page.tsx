@@ -391,7 +391,9 @@ function AppShell({
                     className={`sidebar ${sidebarCollapsed ? "sidebar-collapsed" : ""} hidden shrink-0 border-r border-border px-5 py-8 transition-[width] md:block ${sidebarCollapsed ? "w-20" : "w-64"
                         }`}
                 >
-                    <p className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">WORKSPACE</p>
+                    <p className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">
+                        WORKSPACE
+                    </p>
                     {nav}
                     <Separator className="my-7 opacity-40" />
 
