@@ -337,7 +337,7 @@ function AppShell({
 
                         <SheetContent
                             side="left"
-                            className="flex w-72 flex-col border-border bg-background/95"
+                            className="flex w-72 flex-col bg-background/95"
                         >
                             <SheetTitle className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">
                                 WORKSPACE
