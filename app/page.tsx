@@ -340,7 +340,7 @@ function AppShell({
                             className="flex w-72 flex-col bg-background/95 gap-10"
                         >
                             <div className="mb-3">
-                                <SheetTitle className="absolute top-4 left-3 eyebrow px-3 text-base font-semibold tracking-[.16em]">
+                                <SheetTitle className="absolute top-5 left-3 eyebrow px-3 text-base font-semibold tracking-[.16em]">
                                     WORKSPACE
                                 </SheetTitle>
                             </div>
