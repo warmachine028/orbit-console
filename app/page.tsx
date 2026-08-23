@@ -395,7 +395,7 @@ function AppShell({
                     {nav}
                     <Separator className="my-7 opacity-40" />
 
-                    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 sidebar-note">
+                    <div className="rounded-xl border border-border bg-white/[0.03] p-4 sidebar-note">
                         <ShieldCheck className="mb-3 size-5 text-[var(--blue)]" />
                         <p className="text-sm font-medium">
                             <span>Secure by design</span>
