@@ -302,7 +302,7 @@ function AppShell({
     return (
         <div className="flex min-h-screen flex-col overflow-hidden">
             <div className="ambient ambient-pink" />
-            <footer className="fixed inset-x-0 bottom-0 z-10 border-t border-border bg-background/90 px-5 py-3 text-center text-xs text-muted-foreground backdrop-blur-md sm:px-8">
+            <footer className="fixed inset-x-0 bottom-0 z-10 border-t-2 border-border bg-background/90 px-5 py-3 text-center text-xs text-muted-foreground backdrop-blur-md sm:px-8">
                 Orbit Console · Built for focused operations
             </footer>
             <div className="ambient ambient-blue" />
@@ -388,9 +388,8 @@ function AppShell({
 
             <div className="relative mx-auto flex w-full max-w-[1440px] flex-1">
                 <aside
-                    className={`sidebar ${sidebarCollapsed ? "sidebar-collapsed" : ""} hidden shrink-0 border-r border-border px-5 py-8 transition-[width] md:block ${
-                        sidebarCollapsed ? "w-20" : "w-64"
-                    }`}
+                    className={`sidebar ${sidebarCollapsed ? "sidebar-collapsed" : ""} hidden shrink-0 border-r border-border px-5 py-8 transition-[width] md:block ${sidebarCollapsed ? "w-20" : "w-64"
+                        }`}
                 >
                     <p className="eyebrow mb-4 px-3">Workspace</p>
                     {nav}
@@ -611,7 +610,7 @@ function AppShell({
                                                                         <Badge
                                                                             variant={
                                                                                 item.status ===
-                                                                                "Active"
+                                                                                    "Active"
                                                                                     ? "default"
                                                                                     : "secondary"
                                                                             }
@@ -727,7 +726,7 @@ function AppShell({
                                                             <Badge
                                                                 variant={
                                                                     item.status ===
-                                                                    "Active"
+                                                                        "Active"
                                                                         ? "default"
                                                                         : "secondary"
                                                                 }
