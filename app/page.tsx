@@ -340,7 +340,7 @@ function AppShell({
                             className="flex w-72 flex-col border-border bg-background/95"
                         >
                             <SheetTitle className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">
-                                WORKSPACEX
+                                WORKSPACE
                             </SheetTitle>
                             {nav}
                             <div className="sidebar-note mt-auto flex items-center gap-3 border-t border-border/70 bg-muted/40 p-3 text-xs text-muted-foreground">
@@ -391,7 +391,7 @@ function AppShell({
                     className={`sidebar ${sidebarCollapsed ? "sidebar-collapsed" : ""} hidden shrink-0 border-r border-border px-5 py-8 transition-[width] md:block ${sidebarCollapsed ? "w-20" : "w-64"
                         }`}
                 >
-                    <p className="eyebrow mb-4 px-3">Workspace</p>
+                    <p className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">WORKSPACE</p>
                     {nav}
                     <Separator className="my-7 opacity-40" />
 
