@@ -390,8 +390,7 @@ function AppShell({
 
             <div className="relative mx-auto flex w-full max-w-360 flex-1">
                 <aside
-                    className={`sidebar ${sidebarCollapsed ? "sidebar-collapsed" : ""} hidden shrink-0 border-r border-border px-5 py-8 transition-[width] md:block ${sidebarCollapsed ? "w-20" : "w-64"
-                        }`}
+                    className={`sidebar ${sidebarCollapsed ? "sidebar-collapsed w-20" : "w-64"} hidden shrink-0 border-r border-border px-5 py-8 transition-[width] md:block`}
                 >
                     <p className="eyebrow mb-8 px-3 text-sm font-semibold tracking-[.16em]">
                         WORKSPACE
