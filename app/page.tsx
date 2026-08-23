@@ -302,7 +302,7 @@ function AppShell({
     return (
         <div className="flex min-h-screen flex-col overflow-hidden">
             <div className="ambient ambient-pink" />
-            <footer className="fixed inset-x-0 bottom-0 z-10 border-t-2 border-border bg-background/90 px-5 py-3 text-center text-xs text-muted-foreground backdrop-blur-md sm:px-8">
+            <footer className="fixed inset-x-0 bottom-0 z-10 border-t border-border bg-background/90 px-5 py-3 text-center text-xs text-muted-foreground backdrop-blur-md sm:px-8">
                 Orbit Console · Built for focused operations
             </footer>
             <div className="ambient ambient-blue" />
@@ -782,7 +782,7 @@ function AppShell({
                         <Route path="*" element={<NotFound authenticated />} />
                     </Routes>
 
-                    <footer className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+                    <footer className="mt-14 flex flex-col gap-2 border-t border-white/10 border-border pt-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
                         <span>Orbit Console · 2026</span>
                         <span>
                             React frontend · Spring Boot API · Neon Postgres
